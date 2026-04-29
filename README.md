@@ -74,6 +74,10 @@ project-root/<br>
 1. Clone the repository:git clone https://github.com/your-sathvikamareddy/tourism-recommendation-system.git
 
 ---
+## Output
+<img width="787" height="519" alt="image" src="https://github.com/user-attachments/assets/569f36ea-faef-4a06-acd7-d1892ee8ab43" />
+
+---
 
 ## 📊 Use Case
 - Tourists planning visits to Sikkim  
