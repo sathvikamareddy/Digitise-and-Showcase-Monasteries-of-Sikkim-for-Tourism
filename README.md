@@ -1,95 +1,81 @@
-# 🌏 Tourism Recommendation System for Sikkim Monasteries
+# 🏔️ Sacred Sikkim — Monasteries of the Himalayas
 
-## 📌 Project Overview
-The Tourism Recommendation System for Sikkim Monasteries is a full-stack web application designed to help users explore culturally significant monasteries in Sikkim. The platform provides structured and detailed information, enabling tourists to make informed travel decisions.
+A full-stack tourism web app to digitize and showcase the monasteries of Sikkim.
 
-The system focuses on delivering a user-friendly and responsive interface while ensuring efficient data handling through a robust backend.
+## Tech Stack
+- **Frontend:** React 18 + Vite, React Router, Tailwind CSS
+- **Backend:** Node.js + Express
+- **Database:** `node:sqlite` — **built into Node 22+, zero npm install needed**
+- **Auth:** JWT + bcrypt
 
----
+## ✅ Prerequisites
+- Node.js **v22 or higher** (you're on v25 — perfect)
+- No native addons. No compilation. No `better-sqlite3`.
 
-## 🎯 Objectives
-- Develop an interactive platform for discovering monasteries in Sikkim  
-- Provide detailed information such as history, location, and cultural significance  
-- Ensure a responsive and intuitive user interface  
-- Implement a scalable and efficient system architecture  
-
----
-
-## 🚀 Key Features
-- Monastery exploration with structured listings  
-- Detailed information for each monastery  
-- Responsive and user-friendly interface  
-- Smooth navigation and browsing experience  
-- Basic recommendation functionality  
-
----
-
-## 🛠️ Technology Stack
-
-### Frontend
-- React.js  
-- HTML5  
-- CSS3  
+## Getting Started
 
 ### Backend
-- Node.js  
-- Express.js  
+```bash
+cd backend
+npm install          # only installs express, cors, bcryptjs, dotenv, jsonwebtoken
+npm start            # runs: node --experimental-sqlite server.js
+```
+Server starts at **http://localhost:5000**
 
-### Database
-- MongoDB / JSON (update based on your implementation)  
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+App opens at **http://localhost:5173**
 
----
-
-## 🏗️ System Architecture
-The application follows a client-server architecture:
-
-- The frontend (React.js) handles user interface and interactions  
-- The backend (Node.js + Express.js) processes requests and manages logic  
-- The database stores monastery and user-related data  
-
----
-
-## 📂 Project Structure
-
-project-root/<br>
-│── client/ # Frontend (React)<br>
-│── server/ # Backend (Node.js + Express)<br>
-│── routes/ # API routes<br>
-│── models/ # Data models<br>
-│── public/ # Static files<br>
-│── package.json<br>
-│── README.md<br>
-
+### Default Admin Login
+- Email: `admin@sacredsikkim.com`
+- Password: `admin123`
 
 ---
 
-## ⚙️ Installation & Setup
+## Project Structure
+```
+sikkim-monasteries/
+├── backend/
+│   ├── server.js                  ← Express entry point
+│   ├── config/config.js           ← Env vars
+│   ├── db/database.js             ← node:sqlite init + seed
+│   ├── middleware/                ← JWT auth, error handler
+│   ├── controllers/               ← auth, monasteries, reviews, favourites
+│   └── routes/                    ← auth, monasteries, reviews, favourites
+│
+└── frontend/
+    └── src/
+        ├── api/index.js           ← Axios calls
+        ├── context/               ← AuthContext, FavouritesContext
+        ├── hooks/                 ← useMonasteries, useMonastery
+        ├── components/
+        │   ├── common/            ← Navbar, Footer, Loader, ProtectedRoute
+        │   ├── monastery/         ← MonasteryCard, FilterBar, ReviewSection
+        │   ├── auth/              ← AuthForm
+        │   └── admin/             ← MonasteryForm
+        └── pages/                 ← Home, Explore, Detail, Festivals,
+                                      Login, Register, Favourites, Admin
+```
 
-### Prerequisites
-- Node.js  
-- npm  
+## API Endpoints
 
-### Steps
-
-1. Clone the repository:git clone https://github.com/your-sathvikamareddy/tourism-recommendation-system.git
-
----
-## Output
-<img width="787" height="519" alt="image" src="https://github.com/user-attachments/assets/569f36ea-faef-4a06-acd7-d1892ee8ab43" />
-
----
-
-## 📊 Use Case
-- Tourists planning visits to Sikkim  
-- Travel enthusiasts exploring cultural destinations  
-- Academic and learning purposes  
-
----
-
-## 🔮 Future Enhancements
-- AI/ML-based personalized recommendations  
-- Map integration for navigation  
-- User authentication system  
-- Reviews and rating feature  
-- Cloud deployment  
-
+| Method | Route | Auth | Description |
+|--------|-------|------|-------------|
+| POST | /api/auth/register | — | Register |
+| POST | /api/auth/login | — | Login → JWT |
+| GET | /api/auth/me | JWT | Current user |
+| GET | /api/monasteries | — | List (filter: district, sect, search) |
+| GET | /api/monasteries/:id | — | Detail + reviews |
+| POST | /api/monasteries | Admin | Create |
+| PUT | /api/monasteries/:id | Admin | Update |
+| DELETE | /api/monasteries/:id | Admin | Delete |
+| GET | /api/reviews/:monasteryId | — | Reviews list |
+| POST | /api/reviews/:monasteryId | JWT | Add review |
+| DELETE | /api/reviews/:id | JWT/Admin | Delete review |
+| GET | /api/favourites | JWT | My saved list |
+| POST | /api/favourites/:id | JWT | Save |
+| DELETE | /api/favourites/:id | JWT | Unsave |
